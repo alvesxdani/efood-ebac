@@ -1,5 +1,5 @@
+import { Outlet } from 'react-router-dom'
 import Header from './components/Header'
-import ContainerCards from './containers/ContainerCards'
 import { GlobalStyle } from './styles/global'
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
     <>
       <GlobalStyle />
       <Header />
-      <ContainerCards />
+      <Outlet />
     </>
   )
 }

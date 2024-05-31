@@ -1,5 +1,6 @@
 import { StyledCard } from './styles'
 import star from '../../assets/star.png'
+import { Link } from 'react-router-dom'
 
 type Props = {
   image: string
@@ -19,12 +20,14 @@ const Card = ({ image, name, rating, description}: Props) => {
           <h3>{name}</h3>
           <span>
             {rating}
-            <img src={star} alt="Estrela amarela" className='star'/>
+            <img src={star} alt="Estrela amarela" className="star" />
           </span>
         </div>
         <p>{description}</p>
       </div>
-      <button>Saiba mais</button>
+      <Link to="/perfil">
+        <button>Saiba mais</button>
+      </Link>
     </StyledCard>
   )
 }

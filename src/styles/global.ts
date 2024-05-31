@@ -1,4 +1,8 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+
+type Props = {
+  grid: number
+}
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -15,4 +19,13 @@ export const GlobalStyle = createGlobalStyle`
   h1, h2, h3 {
     font-family: 'Montserrat', sans-serif;
   }
+`
+
+export const StyledContainerCard = styled.div<Props>`
+  width: 80%;
+  margin: 2rem auto;
+  display: grid;
+  justify-content: space-between;
+  ${(props) => props.grid === 2 ? `grid-template-columns: auto auto;` : `grid-template-columns: auto auto auto;`}
+  gap: 0.8rem;
 `
