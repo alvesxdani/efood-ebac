@@ -1,12 +1,27 @@
-import { StyledHeader } from './styles'
 import logo from '../../assets/logo.png'
+import { StyledHeader } from './style'
 
-const Header = () => {
+type Props = {
+  type: 'home' | 'perfil'
+}
+
+const Header = ({ type }: Props) => {
   return (
-    <StyledHeader>
-      <img src={logo} alt="Logo do Efood" />
-      <h1>Viva experiências gastronômicas no conforto da sua casa</h1>
-    </StyledHeader>
+    <>
+        {type === 'home' && (
+          <StyledHeader type='home'>
+            <img src={logo} alt="Logo do Efood" />
+            <h1>Viva experiências gastronômicas no conforto da sua casa</h1>
+          </StyledHeader>
+        )}
+        {type === 'perfil' && (
+          <StyledHeader type='perfil'>
+            <span>Restaurantes</span>
+            <img src={logo} alt="Logo do Efood" />
+            <span>0 produto(s) no carrinho</span>
+          </StyledHeader>
+        )}
+    </>
   )
 }
 
