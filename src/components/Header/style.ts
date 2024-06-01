@@ -25,7 +25,7 @@ export const StyledHeader = styled.header<Props>`
     justify-content: center;
     align-items: center;
     height: 186px;
-    gap:  
+    gap: 138px;
     span {
       font-weight: bold;
       color: ${colors.primary};
@@ -36,5 +36,11 @@ export const StyledHeader = styled.header<Props>`
     color: ${colors.primary};
     width: 50%;
     text-align: center;
+  }
+
+  a {
+    text-decoration: none;
+    font-weight: bold;
+    color: ${colors.primary};
   }
 `

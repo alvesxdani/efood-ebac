@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import logo from '../../assets/logo.png'
 import { StyledHeader } from './style'
 
@@ -16,7 +17,7 @@ const Header = ({ type }: Props) => {
         )}
         {type === 'perfil' && (
           <StyledHeader type='perfil'>
-            <span>Restaurantes</span>
+            <Link to="/">Restaurantes</Link>
             <img src={logo} alt="Logo do Efood" />
             <span>0 produto(s) no carrinho</span>
           </StyledHeader>

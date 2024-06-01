@@ -25,7 +25,7 @@ const Card = ({ image, name, rating, description}: Props) => {
         </div>
         <p>{description}</p>
       </div>
-      <Link to="/perfil">
+      <Link to="/about">
         <button>Saiba mais</button>
       </Link>
     </StyledCard>
