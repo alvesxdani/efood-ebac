@@ -10,7 +10,6 @@ export const StyledHeader = styled.header<Props>`
   width: 100%;
   background-image: url(${image});
   display: flex;
-  gap: 139px;
   ${(props) =>
     props.type === 'home' &&
     `
@@ -18,6 +17,7 @@ export const StyledHeader = styled.header<Props>`
     justify-content: center;
     align-items: center;
     height: 384px;
+    gap: 139px;
     `}
   ${(props) =>
     props.type === 'perfil' &&
@@ -25,6 +25,7 @@ export const StyledHeader = styled.header<Props>`
     justify-content: center;
     align-items: center;
     height: 186px;
+    gap:  
     span {
       font-weight: bold;
       color: ${colors.primary};
