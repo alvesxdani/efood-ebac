@@ -9,8 +9,13 @@ export const StyledCardPedido = styled.div`
   justify-content: space-between;
   align-items: center;
   max-width: 316px;
+  width: 100%;
   background-color: ${colors.primary};
-  padding: 0.5rem;
+  padding: 0.8rem;
+
+  img {
+    width: 310px;
+  }
 
   .description {
     display: flex;

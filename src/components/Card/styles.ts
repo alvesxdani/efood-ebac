@@ -4,10 +4,32 @@ import { colors } from '../../styles/colors'
 export const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   color: ${colors.primary};
   border: 1px solid ${colors.primary};
   max-width: 472px;
-  justify-content: space-between;
+  position: relative;
+
+  img {
+    height: 472px;
+  }
+
+  .details {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+    span {
+      background-color: ${colors.primary};
+      color: #fff;
+      padding: 0.3rem;
+    }
+  }
+
+  .image {
+    width: 100%;
+  }
 
   .description {
     display: flex;

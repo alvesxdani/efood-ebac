@@ -1,24 +1,28 @@
+import { MouseEventHandler } from 'react'
 import { StyledCardPedido } from './styles'
 
 type Props = {
-  image: string
-  name: string
-  description: string
+  descricao: string
+  foto: string
+  nome: string
+  porcao?: string
+  preco?: number
+  onclick: MouseEventHandler<HTMLButtonElement> | undefined
 }
 
-const CardPedido = ({ image, name, description }: Props) => {
+const CardPedido = ({ descricao, foto, nome, onclick }: Props) => {
   return (
     <StyledCardPedido>
       <div className="image">
-        <img src={image} alt={name} />
+        <img src={foto} alt={nome} />
       </div>
       <div className="description">
         <div className="title">
-          <h3>{name}</h3>
+          <h3>{nome}</h3>
         </div>
-        <p>{description}</p>
+        <p>{descricao}</p>
       </div>
-      <button>Adicionar ao carrinho</button>
+      <button onClick={onclick}>Mais detalhes</button>
     </StyledCardPedido>
   )
 }

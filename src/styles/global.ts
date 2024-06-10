@@ -1,8 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
-
-type Props = {
-  grid: number
-}
+import styled, { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -21,11 +17,17 @@ export const GlobalStyle = createGlobalStyle`
   }
 `
 
-export const StyledContainerCard = styled.div<Props>`
+export const StyledContainerCard = styled.div`
   width: 80%;
   margin: 2rem auto;
   display: grid;
-  justify-content: space-between;
-  ${(props) => props.grid === 2 ? `grid-template-columns: auto auto;` : `grid-template-columns: auto auto auto;`}
-  gap: 0.8rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  justify-items: center;
+  gap: 1rem;
+  /* display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-wrap: wrap;
+  gap: 0.8rem; */
 `

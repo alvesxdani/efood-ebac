@@ -1,20 +1,37 @@
-import Card from '../../components/Card'
-import food1 from '../../assets/food1.png'
-import food2 from '../../assets/food2.png'
-import { itens } from '../../utils/data'
+import { useEffect, useState } from 'react'
+import Card, { TCardProps } from '../../components/Card'
 import { StyledContainerCard } from '../../styles/global'
+import useData from '../../utils/useData'
 
 const Home = () => {
+  const { fetchData } = useData()
+  const [data, setData] = useState<TCardProps[] | undefined>()
+
+  useEffect(() => {
+    const fetchAndSetData = async () => {
+      const fetchedData = await fetchData()
+      setData(fetchedData)
+    }
+    fetchAndSetData()
+  }, [fetchData])
+
   return (
-    <StyledContainerCard grid={2}>
-      {itens.map(({ name, rating, description }, index) => (
-        <Card
-          name={name}
-          rating={rating}
-          description={description}
-          image={index === 0 ? food1 : food2}
-        />
-      ))}
+    <StyledContainerCard>
+      {data &&
+        data.map(
+          ({ avaliacao, capa, descricao, titulo, destacado, tipo }, index) => (
+            <Card
+              id={index}
+              capa={capa}
+              avaliacao={avaliacao}
+              titulo={titulo}
+              descricao={descricao}
+              destacado={destacado}
+              tipo={tipo}
+              key={index}
+            />
+          ),
+        )}
     </StyledContainerCard>
   )
 }
