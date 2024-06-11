@@ -29,7 +29,7 @@ export const StyledContainerCard = styled.div<Props>`
     props.grid === 2
       ? `grid-template-columns: 1fr 1fr;`
       : `grid-template-columns: 1fr 1fr 1fr;`}
-  justify-content: center;
-  justify-items: center;
+  justify-content: space-between;
+  justify-items:center;
   gap: 1rem;
 `
