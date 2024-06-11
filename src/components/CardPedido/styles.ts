@@ -8,10 +8,10 @@ export const StyledCardPedido = styled.div`
   border: 1px solid ${colors.primary};
   justify-content: space-between;
   align-items: center;
-  max-width: 316px;
+  max-width: 320px;
   width: 100%;
   background-color: ${colors.primary};
-  padding: 0.8rem;
+  padding: 0.5rem;
 
   img {
     width: 310px;
@@ -41,11 +41,12 @@ export const StyledCardPedido = styled.div`
     justify-content: center;
     padding: 0.2rem 0.2rem;
     margin: 0.3rem;
-    background-color: #fff;
+    background-color: #ffebd9;
     color: ${colors.primary};
     border: none;
     cursor: pointer;
     width: 100%;
+    font-weight: bold;
   }
 
   a {
