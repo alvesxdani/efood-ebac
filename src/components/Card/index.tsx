@@ -1,6 +1,6 @@
-import { StyledCard } from './styles'
-import star from '../../assets/star.png'
 import { Link } from 'react-router-dom'
+import star from '../../assets/star.png'
+import { StyledCard } from './styles'
 
 type Cardapio = {
   descricao: string
@@ -21,16 +21,22 @@ export type TCardProps = {
   cardapio?: Cardapio[]
 }
 
-const Card = ({ titulo, avaliacao, capa, descricao, destacado, tipo, id }: TCardProps) => {
+const Card = ({
+  titulo,
+  avaliacao,
+  capa,
+  descricao,
+  destacado,
+  tipo,
+  id,
+}: TCardProps) => {
   return (
     <StyledCard>
       <div className="details">
         {destacado && <span>Destaque da semana</span>}
         <span>{tipo}</span>
       </div>
-      <div className="image">
-        <img src={capa} alt={titulo} className="image" />
-      </div>
+      <img src={capa} alt={titulo} className="image" />
       <div className="description">
         <div className="title">
           <h3>{titulo}</h3>
