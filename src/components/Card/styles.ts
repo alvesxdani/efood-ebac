@@ -10,10 +10,6 @@ export const StyledCard = styled.div`
   max-width: 472px;
   position: relative;
 
-  img {
-    height: 472px;
-  }
-
   .details {
     position: absolute;
     right: 0.5rem;
@@ -27,8 +23,8 @@ export const StyledCard = styled.div`
     }
   }
 
-  .image {
-    width: 100%;
+  img {
+    height: 100%;
   }
 
   .description {
