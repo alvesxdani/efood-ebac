@@ -13,4 +13,8 @@ export const StyledHeaderPerfil = styled.div`
   justify-content: space-between;
   color: #fff;
   background-blend-mode: darken;
+  span {
+    font-size: 1.5rem;
+    font-weight: 100;
+  }
 `
