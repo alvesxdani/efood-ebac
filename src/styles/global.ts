@@ -22,7 +22,6 @@ export const GlobalStyle = createGlobalStyle`
 `
 
 export const StyledContainerCard = styled.div<Props>`
-border: 1px solid #000;
   margin: 2rem auto;
   display: grid;
   justify-items: center;
