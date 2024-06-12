@@ -35,7 +35,7 @@ export const StyledModal = styled.div`
   }
 
   .modal {
-    width: 50%;
+    width: 1024px;
     background-color: ${colors.primary};
     color: #fff;
     padding: 0.7rem;
@@ -46,9 +46,15 @@ export const StyledModal = styled.div`
         display: flex;
         flex-direction: column;
         gap: 0.8rem;
+        h2 {
+          font-size: 1rem;
+        }
+        p {
+          font-size: 0.8rem;
+        }
       }
       img {
-        width: 50%;
+        width: 40%;
       }
       button {
         background-color: #fff;
