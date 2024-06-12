@@ -22,14 +22,14 @@ export const GlobalStyle = createGlobalStyle`
 `
 
 export const StyledContainerCard = styled.div<Props>`
-  width: 80%;
+border: 1px solid #000;
   margin: 2rem auto;
   display: grid;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
   ${(props) =>
     props.grid === 2
-      ? `grid-template-columns: 1fr 1fr;`
-      : `grid-template-columns: 1fr 1fr 1fr;`}
-  justify-content: space-between;
-  justify-items:center;
-  gap: 1rem;
+      ? `grid-template-columns: 1fr 1fr; width: 59%; gap: 48px;`
+      : `grid-template-columns: 1fr 1fr 1fr; width: 60%; gap: 32px;`}
 `
