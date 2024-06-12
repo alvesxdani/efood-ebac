@@ -45,6 +45,8 @@ export const StyledModal = styled.div`
       .info {
         display: flex;
         flex-direction: column;
+        justify-content: start;
+        align-items: start;
         gap: 0.8rem;
         h2 {
           font-size: 1rem;
@@ -53,16 +55,21 @@ export const StyledModal = styled.div`
           font-size: 0.8rem;
         }
       }
-      img {
-        width: 40%;
+      .image {
+        width: 50%;
+        overflow: hidden;
+        object-fit: cover;
+        width: 380px;
+        height: 280px;
       }
       button {
         background-color: #fff;
         color: ${colors.primary};
         border: none;
         cursor: pointer;
-        padding: 0.5rem;
+        padding: 0.2rem;
         font-weight: bold;
+        width: auto;
       }
     }
   }
