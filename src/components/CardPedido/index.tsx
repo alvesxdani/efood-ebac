@@ -23,7 +23,7 @@ const CardPedido = ({ descricao, foto, nome, onclick }: Props) => {
         <p>{descricao}</p>
       </div>
       {/* <button onClick={onclick}>Mais detalhes</button> */}
-      <button onClick={onclick}>Adicionar ao carrinho</button>
+      <button onClick={onclick}>Mais detalhes</button>
     </StyledCardPedido>
   )
 }
