@@ -21,27 +21,31 @@ export const StyledModal = styled.div`
     }
   }
   animation: toTup 0.8s ease-in forwards;
-  
-  .close {
-    display: flex;
-    justify-content: flex-end;
-    button {
-      border: none;
-      background-color: transparent;
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-    }
-  }
-
   .modal {
     width: 1024px;
     background-color: ${colors.primary};
     color: #fff;
-    padding: 0.7rem;
+    padding: 2rem;
+    position: relative;
+
+    .close {
+      position: absolute;
+      right: 10px;
+      top: 8px;
+
+      button {
+        border: none;
+        background-color: transparent;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+
     .produto {
       display: flex;
       gap: 1rem;
+
       .info {
         display: flex;
         flex-direction: column;
@@ -49,10 +53,10 @@ export const StyledModal = styled.div`
         align-items: start;
         gap: 0.8rem;
         h2 {
-          font-size: 1rem;
+          font-size: 18px;
         }
         p {
-          font-size: 0.8rem;
+          font-size: 14px;
         }
       }
       .image {
@@ -63,7 +67,7 @@ export const StyledModal = styled.div`
         height: 280px;
       }
       button {
-        background-color: #fff;
+        background-color: #ffebd9;
         color: ${colors.primary};
         border: none;
         cursor: pointer;
