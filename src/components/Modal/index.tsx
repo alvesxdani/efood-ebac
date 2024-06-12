@@ -18,13 +18,12 @@ const Modal = ({ onclick, descricao, foto, nome, porcao, preco }: Props) => {
           <button onClick={onclick}>X</button>
         </div>
         <div className="produto">
-          <img src={foto} alt={nome} />
+          <img src={foto} alt={nome} className="image" />
           <div className="info">
             <h2>{nome}</h2>
             <p>{descricao}</p>
             <p>Serve: {porcao}</p>
-            <p>R$ {preco.toFixed(2)}</p>
-            <button>Adicionar ao carrinho</button>
+            <button>Adicionar ao carrinho - R$ {preco.toFixed(2)}</button>
           </div>
         </div>
       </div>
