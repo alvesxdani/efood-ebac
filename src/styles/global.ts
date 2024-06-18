@@ -30,5 +30,5 @@ export const StyledContainerCard = styled.div<Props>`
   ${(props) =>
     props.grid === 2
       ? `grid-template-columns: 1fr 1fr; width: 1126px;`
-      : `grid-template-columns: 1fr 1fr 1fr;`}
+      : `grid-template-columns: 1fr 1fr 1fr; width: 1090px; gap: 32px;`}
 `
