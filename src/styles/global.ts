@@ -27,6 +27,7 @@ export const StyledContainerCard = styled.div<Props>`
   align-content: center;
   justify-items: center;
   margin: 2rem auto;
+  padding-bottom: 120px;
   ${(props) =>
     props.grid === 2
       ? `grid-template-columns: 1fr 1fr; width: 1126px;`
