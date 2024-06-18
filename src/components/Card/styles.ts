@@ -5,10 +5,12 @@ export const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 472px;
+  position: relative;
   color: ${colors.primary};
   border: 1px solid ${colors.primary};
-  max-width: 472px;
-  position: relative;
+  margin-right: 80px;
+  margin-bottom: 48px;
 
   .details {
     position: absolute;
