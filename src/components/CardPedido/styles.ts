@@ -8,8 +8,7 @@ export const StyledCardPedido = styled.div`
   border: 1px solid ${colors.primary};
   justify-content: space-between;
   align-items: center;
-  max-width: 320px;
-  width: 100%;
+  width: 320px;
   background-color: ${colors.primary};
   padding: 0.5rem;
 
