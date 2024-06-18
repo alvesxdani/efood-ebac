@@ -1,4 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom'
+import Footer from './components/Footer'
 import Header from './components/Header'
 import { GlobalStyle } from './styles/global'
 
@@ -9,6 +10,7 @@ function App() {
       <GlobalStyle />
       <Header type={pathname === '/' ? 'home' : 'perfil'} />
       <Outlet />
+      <Footer />
     </>
   )
 }
