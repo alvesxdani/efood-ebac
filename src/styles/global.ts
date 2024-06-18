@@ -22,13 +22,13 @@ export const GlobalStyle = createGlobalStyle`
 `
 
 export const StyledContainerCard = styled.div<Props>`
-  margin: 2rem auto;
   display: grid;
-  justify-items: center;
-  align-content: center;
   justify-content: center;
+  align-content: center;
+  justify-items: center;
+  margin: 2rem auto;
   ${(props) =>
     props.grid === 2
-      ? `grid-template-columns: 1fr 1fr; width: 59%; gap: 48px;`
-      : `grid-template-columns: 1fr 1fr 1fr; width: 60%; gap: 32px;`}
+      ? `grid-template-columns: 1fr 1fr; width: 1126px;`
+      : `grid-template-columns: 1fr 1fr 1fr;`}
 `
