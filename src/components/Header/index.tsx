@@ -18,8 +18,8 @@ const Header = ({ type }: Props) => {
         {type === 'perfil' && (
           <StyledHeader type='perfil'>
             <Link to="/">Restaurantes</Link>
-            <img src={logo} alt="Logo do Efood" />
-            <span>0 produto(s) no carrinho</span>
+            <img src={logo} alt="Logo do Efood" className='logo' width={165} />
+            <a>0 produto(s) no carrinho</a>
           </StyledHeader>
         )}
     </>
