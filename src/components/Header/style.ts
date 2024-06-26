@@ -25,10 +25,12 @@ export const StyledHeader = styled.header<Props>`
     justify-content: center;
     align-items: center;
     height: 186px;
-    gap: 138px;
-    span {
-      font-weight: bold;
-      color: ${colors.primary};
+    a {
+    font-size: 18px;
+    }
+    .logo {
+    margin-left: 341px;
+    margin-right: 193px;
     }
     `}
 
