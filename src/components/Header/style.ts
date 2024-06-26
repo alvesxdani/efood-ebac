@@ -36,8 +36,9 @@ export const StyledHeader = styled.header<Props>`
 
   h1 {
     color: ${colors.primary};
-    width: 50%;
     text-align: center;
+    width: 539px;
+    font-size: 31px;
   }
 
   a {
