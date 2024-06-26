@@ -64,8 +64,10 @@ const Perfil = () => {
         </>
       )} */}
       <StyledHeaderPerfil>
-        <span>Italiana</span>
-        <h2>La Dolce Vita Trattoria</h2>
+        <div className="header-restaurant">
+          <span>Italiana</span>
+          <h2>La Dolce Vita Trattoria</h2>
+        </div>
       </StyledHeaderPerfil>
       <StyledContainerCard grid={3}>
         {pizzas.map(({ nome, descricao }, index) => (
@@ -76,7 +78,17 @@ const Perfil = () => {
               foto={pizzaPhoto}
               onclick={() => openMoodal(index)}
             />
-            {isOpen && selectedIndex === index && <Modal descricao={descricao} foto={pizzaPhoto} nome={nome} onclick={() => setIsOpen(!isOpen)} porcao='de 2 a 3 pessoas' preco={60.90} key={index} />}
+            {isOpen && selectedIndex === index && (
+              <Modal
+                descricao={descricao}
+                foto={pizzaPhoto}
+                nome={nome}
+                onclick={() => setIsOpen(!isOpen)}
+                porcao="de 2 a 3 pessoas"
+                preco={60.9}
+                key={index}
+              />
+            )}
           </>
         ))}
       </StyledContainerCard>
