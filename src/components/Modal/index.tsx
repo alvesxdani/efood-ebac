@@ -1,4 +1,9 @@
 import { MouseEventHandler } from 'react'
+import {
+  addItemToCart,
+  setIsOpenCart,
+} from '../../store/carrinho/carrinho.store'
+import { useAppDispatch } from '../../store/hooks'
 import { StyledModal } from './styles'
 
 type Props = {
@@ -11,6 +16,20 @@ type Props = {
 }
 
 const Modal = ({ onclick, descricao, foto, nome, porcao, preco }: Props) => {
+  const dispatch = useAppDispatch()
+
+  function handleAddProductOnCart() {
+    dispatch(
+      addItemToCart({
+        name: nome,
+        price: preco,
+        quantity: 1,
+        image: foto,
+      }),
+      dispatch(setIsOpenCart(true)),
+    )
+  }
+
   return (
     <StyledModal>
       <div className="modal">
@@ -23,7 +42,9 @@ const Modal = ({ onclick, descricao, foto, nome, porcao, preco }: Props) => {
             <h2>{nome}</h2>
             <p>{descricao}</p>
             <p>Serve: {porcao}</p>
-            <button>Adicionar ao carrinho - R$ {preco.toFixed(2)}</button>
+            <button onClick={handleAddProductOnCart}>
+              Adicionar ao carrinho - R$ {preco.toFixed(2)}
+            </button>
           </div>
         </div>
       </div>
