@@ -23,6 +23,10 @@ export const GlobalStyle = createGlobalStyle`
   h2 {
     font-size: 32px;
   }
+
+  h3 {
+    font-style: 18px;
+  }
 `
 
 export const StyledContainerCard = styled.div<Props>`
