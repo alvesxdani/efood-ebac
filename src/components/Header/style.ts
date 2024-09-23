@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import { colors } from '../../styles/colors'
 import image from '../../assets/fundo-header.png'
+import { colors } from '../../styles/colors'
 
 type Props = {
   type: 'home' | 'perfil'
@@ -41,9 +41,17 @@ export const StyledHeader = styled.header<Props>`
     font-size: 31px;
   }
 
-  a {
+  a,
+  button {
     text-decoration: none;
     font-weight: bold;
     color: ${colors.primary};
+  }
+
+  button {
+    background: none;
+    border: none;
+    font-size: inherit;
+    cursor: pointer;
   }
 `
