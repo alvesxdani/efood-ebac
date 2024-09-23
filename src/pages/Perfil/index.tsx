@@ -1,16 +1,19 @@
 // import { useParams } from 'react-router-dom'
 import { useState } from 'react'
+import pizzaPhoto from '../../assets/pizza.png'
 import CardPedido from '../../components/CardPedido'
+import Carrinho from '../../components/Carrinho'
+import Modal from '../../components/Modal'
+import { useAppSelector } from '../../store/hooks'
 import { StyledContainerCard } from '../../styles/global'
 import { pizzas } from '../../utils/data2'
 import { StyledHeaderPerfil } from './style'
-import Modal from '../../components/Modal'
-import pizzaPhoto from '../../assets/pizza.png'
 
 const Perfil = () => {
   // const [data, setData] = useState<TCardProps | undefined>()
-  const [isOpen, setIsOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState<number>()
+  const isCartOpen = useAppSelector((state) => state.cart.isOpen)
   // const { fetchData } = useData()
   // const { id } = useParams()
 
@@ -24,8 +27,8 @@ const Perfil = () => {
   // }, [fetchData, id])
 
   function openMoodal(index: number | undefined) {
-      setSelectedIndex(index)
-    setIsOpen(!isOpen)
+    setSelectedIndex(index)
+    setIsModalOpen(!isModalOpen)
   }
 
   return (
@@ -70,28 +73,28 @@ const Perfil = () => {
         </div>
       </StyledHeaderPerfil>
       <StyledContainerCard grid={3}>
-        {pizzas.map(({ nome, descricao }, index) => (
-          <>
+        {pizzas.map(({ nome, descricao, preco }, index) => (
+          <div key={index}>
             <CardPedido
               descricao={descricao}
               nome={nome}
               foto={pizzaPhoto}
               onclick={() => openMoodal(index)}
             />
-            {isOpen && selectedIndex === index && (
+            {isModalOpen && selectedIndex === index && (
               <Modal
                 descricao={descricao}
                 foto={pizzaPhoto}
                 nome={nome}
-                onclick={() => setIsOpen(!isOpen)}
+                onclick={() => setIsModalOpen(!isModalOpen)}
                 porcao="de 2 a 3 pessoas"
-                preco={60.9}
-                key={index}
+                preco={preco}
               />
             )}
-          </>
+          </div>
         ))}
       </StyledContainerCard>
+      {isCartOpen && <Carrinho />}
     </>
   )
 }
