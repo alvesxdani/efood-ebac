@@ -1,5 +1,6 @@
 import { MouseEventHandler } from 'react'
 import { StyledCardPedido } from './styles'
+import Button from '../Button'
 
 type Props = {
   descricao: string
@@ -23,7 +24,7 @@ const CardPedido = ({ descricao, foto, nome, onclick }: Props) => {
         <p>{descricao}</p>
       </div>
       {/* <button onClick={onclick}>Mais detalhes</button> */}
-      <button onClick={onclick}>Mais detalhes</button>
+      <Button onClick={onclick}>Mais detalhes</Button>
     </StyledCardPedido>
   )
 }
