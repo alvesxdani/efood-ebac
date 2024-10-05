@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 import imgHeader from '../../assets/header2.png'
 
 export const StyledHeaderPerfil = styled.div`
@@ -7,17 +7,17 @@ export const StyledHeaderPerfil = styled.div`
   background-size: cover;
   width: 100%;
   height: 280px;
-  padding: 2rem 8rem;
   color: #fff;
   background-blend-mode: darken;
   display: flex;
   justify-content: center;
   .header-restaurant {
+    width: 1090px;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 1090px;
+    padding: 32px 0.6rem;
   }
   span {
     font-size: 32px;
