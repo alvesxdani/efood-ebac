@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import wasteBasketIcon from '../../assets/wastebasket.png'
 import {
   removeItemFromCart,
@@ -11,18 +11,39 @@ import { StyledContainerCarrinho } from './styles'
 const Carrinho = () => {
   const { items, totalAmount } = useAppSelector((state) => state.cart)
   const dispatch = useAppDispatch()
+  const modalRef = useRef<HTMLDivElement | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(true)
 
   function handleRemoveItem(name: string) {
     dispatch(removeItemFromCart(name))
   }
 
   useEffect(() => {
-    document.addEventListener('keyup', () => dispatch(setIsOpenCart(false)))
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        setIsModalOpen(false)
+        dispatch(setIsOpenCart(false))
+      }
+    }
+
+    document.addEventListener('mousedown', handleOutsideClick)
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick)
+    }
   }, [dispatch])
+
+  useEffect(() => {
+    document.addEventListener('keydown', () => dispatch(setIsOpenCart(false)))
+  }, [dispatch])
+
+  if (!isModalOpen) return null
 
   return (
     <StyledContainerCarrinho>
-      <div className="modal">
+      <div className="modal" ref={modalRef}>
         <div className="container-order">
           {items?.map((produto, index) => (
             <div className="order" key={index}>
@@ -33,7 +54,7 @@ const Carrinho = () => {
               />
               <div className="info-product">
                 <h3>{produto.name}</h3>
-                <p>R$ {produto.price}</p>
+                R$ {produto.price.toFixed(2)} x{produto.quantity}
                 <div
                   className="wastebasket"
                   onClick={() => handleRemoveItem(produto.name)}
