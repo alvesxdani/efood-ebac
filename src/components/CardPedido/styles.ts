@@ -14,6 +14,8 @@ export const StyledCardPedido = styled.div`
 
   img {
     width: 310px;
+    height: 167px;
+    object-fit: cover;
   }
 
   .description {
@@ -21,6 +23,7 @@ export const StyledCardPedido = styled.div`
     flex-direction: column;
     gap: 0.5rem;
     padding: 0.5rem;
+    font-size: 14px;
   }
 
   .title {
