@@ -14,16 +14,17 @@ type Props = {
 const CardPedido = ({ descricao, foto, nome, onclick }: Props) => {
   return (
     <StyledCardPedido>
-      <div className="image">
-        <img src={foto} alt={nome} />
-      </div>
-      <div className="description">
-        <div className="title">
-          <h3>{nome}</h3>
+      <div className="info">
+        <div className="image">
+          <img src={foto} alt={nome} />
         </div>
-        <p>{descricao}</p>
+        <div className="description">
+          <div className="title">
+            <h3>{nome}</h3>
+          </div>
+          <p>{descricao}</p>
+        </div>
       </div>
-      {/* <button onClick={onclick}>Mais detalhes</button> */}
       <Button onClick={onclick}>Mais detalhes</Button>
     </StyledCardPedido>
   )
