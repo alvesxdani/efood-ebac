@@ -44,7 +44,11 @@ const cartSlice = createSlice({
       const item = state.items.find((pizza) => pizza.name === itemName)
 
       if (item) {
-        state.totalAmount -= item.price * item.quantity
+        state.totalAmount -= item.price
+        item.quantity -= 1
+      }
+
+      if (item?.quantity === 0) {
         state.items = state.items.filter((pizza) => pizza.name !== itemName)
       }
     },
