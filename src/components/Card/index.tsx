@@ -36,7 +36,9 @@ const Card = ({
         {destacado && <span>Destaque da semana</span>}
         <span>{tipo}</span>
       </div>
-      <img src={capa} alt={titulo} className="image" />
+      <div className="image">
+        <img src={capa} alt={titulo} />
+      </div>
       <div className="description">
         <div className="title">
           <h3>{titulo}</h3>
