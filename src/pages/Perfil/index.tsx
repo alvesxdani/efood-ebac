@@ -20,7 +20,7 @@ const Perfil = () => {
   useEffect(() => {
     const fetchAndSetData = async () => {
       const fetchedData = await fetchData()
-      setData(fetchedData[0])
+      setData(fetchedData[Number(id)])
     }
     fetchAndSetData()
   }, [fetchData, id])
