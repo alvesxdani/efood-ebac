@@ -59,12 +59,11 @@ export const StyledModal = styled.div`
           font-size: 14px;
         }
       }
-      .image {
-        width: 50%;
+      .image img {
         overflow: hidden;
-        object-fit: cover;
-        width: 380px;
+        width: 280px;
         height: 280px;
+        object-fit: cover;
       }
       button {
         background-color: #ffebd9;
