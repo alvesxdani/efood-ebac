@@ -37,7 +37,9 @@ const Modal = ({ onclick, descricao, foto, nome, porcao, preco }: Props) => {
           <button onClick={onclick}>X</button>
         </div>
         <div className="produto">
-          <img src={foto} alt={nome} className="image" />
+          <div className="image">
+            <img src={foto} alt={nome} />
+          </div>
           <div className="info">
             <h2>{nome}</h2>
             <p>{descricao}</p>
