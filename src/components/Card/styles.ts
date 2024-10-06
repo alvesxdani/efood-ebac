@@ -25,8 +25,11 @@ export const StyledCard = styled.div`
     }
   }
 
-  img {
-    height: 100%;
+  .image img {
+    max-width: 472px;
+    width: 100%;
+    height: 217px;
+    object-fit: cover;
   }
 
   .description {
@@ -63,7 +66,7 @@ export const StyledCard = styled.div`
     color: #fff;
     cursor: pointer;
   }
-  
+
   a {
     text-decoration: none;
   }
