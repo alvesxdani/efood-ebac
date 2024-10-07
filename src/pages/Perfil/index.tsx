@@ -13,7 +13,7 @@ const Perfil = () => {
   const [data, setData] = useState<TCardProps | undefined>()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState<number>()
-  const isCartOpen = useAppSelector((state) => state.cart.isOpen)
+  const isCartOpen = useAppSelector((state) => state.cart.isCartOpen)
   const { fetchData } = useData()
   const { id } = useParams()
 
