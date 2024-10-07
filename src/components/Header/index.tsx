@@ -9,11 +9,11 @@ type Props = {
 }
 
 const Header = ({ type }: Props) => {
-  const { isOpen, items } = useAppSelector((state) => state.cart)
+  const { isCartOpen, items } = useAppSelector((state) => state.cart)
   const dispatch = useAppDispatch()
 
   function handleCart() {
-    dispatch(setIsOpenCart(!isOpen))
+    dispatch(setIsOpenCart(!isCartOpen))
   }
 
   return (
