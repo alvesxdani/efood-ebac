@@ -10,6 +10,7 @@ export const StyledContainerCarrinho = styled.div`
   display: flex;
   justify-content: end;
   background-color: rgba(0, 0, 0, 0.5);
+  color: ${colors.secondary};
 
   .modal {
     width: 360px;
@@ -69,6 +70,58 @@ export const StyledContainerCarrinho = styled.div`
       span {
         font-weight: 700;
         color: ${colors.secondary};
+      }
+    }
+
+    .container-info, .container-payment, .container-finish {
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+      font-weight: 700;
+
+      .title {
+        font-size: 16px;
+        margin-bottom: 16px;
+      }
+
+      .form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        margin-bottom: 24px;
+
+        .form-item, .form-item-column {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+
+          label {
+            font-size: 14px;
+          }
+
+          input {
+            height: 32px;
+            border: none;
+            background-color: ${colors.secondary};
+          }
+        }
+
+        .form-item-column {
+          flex-direction: row;
+          gap: 34px;
+          overflow: hidden;
+        }
+      }
+
+      .buttons {
+        display: flex;
+        flex-direction: column;
+      }
+
+      p {
+        font-weight: normal;
+        font-size: 14px;
+        margin-bottom: 1.5rem;
       }
     }
   }
