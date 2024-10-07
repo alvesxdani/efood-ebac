@@ -12,14 +12,14 @@ interface CartState {
   items: PizzaItem[]
   totalAmount: number
   loading: boolean
-  isOpen: boolean
+  isCartOpen: boolean
 }
 
 const initialState: CartState = {
   items: [],
   totalAmount: 0,
   loading: false,
-  isOpen: false,
+  isCartOpen: false,
 }
 
 // Slice do carrinho
@@ -57,11 +57,14 @@ const cartSlice = createSlice({
       state.totalAmount = 0
     },
     setIsOpenCart(state, action: PayloadAction<boolean>) {
-      state.isOpen = action.payload
+      state.isCartOpen = action.payload
     },
     setLoading(state, action: PayloadAction<boolean>) {
       state.loading = action.payload
     },
+    resetOrder(state) {
+      state.items = []
+    }
   },
 })
 
@@ -71,5 +74,6 @@ export const {
   clearCart,
   setLoading,
   setIsOpenCart,
+  resetOrder
 } = cartSlice.actions
 export default cartSlice.reducer
