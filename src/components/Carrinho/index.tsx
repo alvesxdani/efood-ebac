@@ -8,7 +8,6 @@ import {
   setIsOpenCart,
 } from '../../store/carrinho/carrinho.store'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { Order } from '../../utils/order'
 import Button from '../Button'
 import { StyledContainerCarrinho } from './styles'
 
@@ -143,6 +142,13 @@ const Carrinho = () => {
       !form.errors.payment?.card?.expires?.year
     ) {
       setStep(4)
+      form.setFieldValue(
+        'products',
+        items.map((item, index) => ({
+          id: index,
+          price: item.price,
+        })),
+      )
       form.handleSubmit()
     }
   }
