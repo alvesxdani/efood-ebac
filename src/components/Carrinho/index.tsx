@@ -1,4 +1,6 @@
+import { useFormik } from 'formik'
 import { useEffect, useRef, useState } from 'react'
+import * as Yup from 'yup'
 import wasteBasketIcon from '../../assets/wastebasket.png'
 import {
   removeItemFromCart,
@@ -16,38 +18,136 @@ const Carrinho = () => {
   const modalRef = useRef<HTMLDivElement | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(true)
   const [step, setStep] = useState<number>(1)
-  const [order, setOrder] = useState<Order>()
   const [orderId, setOrderId] = useState('')
+
+  const msgRequired = 'Esse campo é obrigatório'
+
+  const validationSchema = Yup.object().shape({
+    products: Yup.array().of(
+      Yup.object().shape({
+        price: Yup.number().required(),
+        id: Yup.number().required(),
+      }),
+    ),
+    delivery: Yup.object().shape({
+      receiver: Yup.string().required(msgRequired),
+      address: Yup.object().shape({
+        description: Yup.string().required(msgRequired),
+        city: Yup.string().required(msgRequired),
+        zipCode: Yup.string()
+          .required(msgRequired)
+          .matches(/^\d{5}-\d{3}$/, 'O formato de CEP está incorreto.'),
+        complement: Yup.string(),
+        number: Yup.number().required(msgRequired),
+      }),
+    }),
+    payment: Yup.object().shape({
+      card: Yup.object().shape({
+        name: Yup.string().required(msgRequired),
+        number: Yup.string()
+          .required(msgRequired)
+          .matches(
+            /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11})$/,
+            'Número de cartão de crédito inválido.',
+          ),
+        code: Yup.string().matches(
+          /^\d{3}$/,
+          'Esse campo deve ter apenas 3 caracteres.',
+        ),
+        expires: Yup.object().shape({
+          month: Yup.string().matches(
+            /^\d{2}$/,
+            'Esse campo deve ter apenas 2 caracteres.',
+          ),
+          year: Yup.string().matches(
+            /^\d{4}$/,
+            'Esse campo deve ter apenas 4 caracteres.',
+          ),
+        }),
+      }),
+    }),
+  })
+
+  const form = useFormik({
+    initialValues: {
+      products: [],
+      delivery: {
+        receiver: '',
+        address: {
+          city: '',
+          complement: '',
+          description: '',
+          number: undefined,
+          zipCode: '',
+        },
+      },
+      payment: {
+        card: {
+          name: '',
+          number: '',
+          code: undefined,
+          expires: {
+            month: undefined,
+            year: undefined,
+          },
+        },
+      },
+    },
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        if (values) {
+          await fetch('https://fake-api-tau.vercel.app/api/efood/checkout', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(values),
+          })
+            .then((resp) => resp.json())
+            .then((json) => setOrderId(json?.orderId))
+          resetForm()
+        }
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    validationSchema,
+  })
 
   function handleRemoveItem(name: string) {
     dispatch(removeItemFromCart(name))
   }
 
-  const data = async () => {
-    const response = await fetch(
-      'https://fake-api-tau.vercel.app/api/efood/checkout',
-    )
-      .then((resp) => resp.json())
-      .then((json) => setOrder(json))
-    return response
+  async function handleToStep3() {
+    await form.validateForm()
+
+    if (
+      !form.errors.delivery?.receiver &&
+      !form.errors.delivery?.address?.city &&
+      !form.errors.delivery?.address?.description &&
+      !form.errors.delivery?.address?.number &&
+      !form.errors.delivery?.address?.zipCode
+    ) {
+      setStep(3)
+    }
   }
 
-  const handleSubmit = async () => {
-    if (order) {
-      await fetch('https://fake-api-tau.vercel.app/api/efood/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(order),
-      })
-        .then((resp) => resp.json())
-        .then((json) => setOrderId(json?.orderId))
+  async function handleToStep4() {
+    await form.validateForm()
+
+    if (
+      !form.errors.payment?.card?.code &&
+      !form.errors.payment?.card?.name &&
+      !form.errors.payment?.card?.number &&
+      !form.errors.payment?.card?.expires?.month &&
+      !form.errors.payment?.card?.expires?.year
+    ) {
+      setStep(4)
+      form.handleSubmit()
     }
   }
 
   useEffect(() => {
-    data()
     const handleOutsideClick = (event: MouseEvent) => {
       if (
         modalRef.current &&
@@ -117,27 +217,36 @@ const Carrinho = () => {
                 <input
                   type="text"
                   id="receiver"
-                  value={order?.delivery.receiver}
-                  readOnly
+                  name="delivery.receiver"
+                  value={form.values.delivery.receiver}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
                 />
+                {form.errors.delivery?.receiver}
               </div>
               <div className="form-item">
                 <label htmlFor="description">Endereço</label>
                 <input
                   type="text"
                   id="description"
-                  value={order?.delivery.address.description}
-                  readOnly
+                  name="delivery.address.description"
+                  value={form.values.delivery.address.description}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
                 />
+                {form.errors.delivery?.address?.description}
               </div>
               <div className="form-item">
                 <label htmlFor="city">Cidade</label>
                 <input
                   type="text"
                   id="city"
-                  value={order?.delivery.address.city}
-                  readOnly
+                  name="delivery.address.city"
+                  value={form.values.delivery.address.city}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
                 />
+                {form.errors.delivery?.address?.city}
               </div>
               <div className="form-item-column">
                 <div className="form-item">
@@ -145,18 +254,25 @@ const Carrinho = () => {
                   <input
                     type="text"
                     id="zipCode"
-                    value={order?.delivery.address.zipCode}
-                    readOnly
+                    name="delivery.address.zipCode"
+                    value={form.values.delivery.address.zipCode}
+                    onChange={form.handleChange}
+                    onBlur={form.handleBlur}
+                    placeholder="99999-999"
                   />
+                  {form.errors.delivery?.address?.zipCode}
                 </div>
                 <div className="form-item">
                   <label htmlFor="number">Número</label>
                   <input
                     type="number"
                     id="number"
-                    value={order?.delivery.address.number}
-                    readOnly
+                    name="delivery.address.number"
+                    value={form.values.delivery.address.number}
+                    onChange={form.handleChange}
+                    onBlur={form.handleBlur}
                   />
+                  {form.errors.delivery?.address?.number}
                 </div>
               </div>
               <div className="form-item">
@@ -164,15 +280,15 @@ const Carrinho = () => {
                 <input
                   type="text"
                   id="complement"
-                  value={order?.delivery.address.complement}
-                  readOnly
+                  name="delivery.address.complement"
+                  value={form.values.delivery.address.complement}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
                 />
               </div>
             </form>
             <div className="buttons">
-              <Button onClick={() => setStep(3)}>
-                Continuar com o pagamento
-              </Button>
+              <Button onClick={handleToStep3}>Continuar com o pagamento</Button>
               <Button onClick={() => setStep(1)}>Voltar para o carrinho</Button>
             </div>
           </div>
@@ -189,9 +305,12 @@ const Carrinho = () => {
                 <input
                   type="text"
                   id="name"
-                  value={order?.payment.card.name}
-                  readOnly
+                  name="payment.card.name"
+                  value={form.values.payment.card.name}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
                 />
+                {form.errors.payment?.card?.name}
               </div>
               <div className="form-item-column">
                 <div className="form-item" style={{ width: '70%' }}>
@@ -199,17 +318,23 @@ const Carrinho = () => {
                   <input
                     type="text"
                     id="number"
-                    value={order?.payment.card.number}
-                    readOnly
+                    name="payment.card.number"
+                    value={form.values.payment.card.number}
+                    onChange={form.handleChange}
+                    onBlur={form.handleBlur}
                   />
+                  {form.errors.payment?.card?.number}
                 </div>
                 <div className="form-item" style={{ width: '30%' }}>
                   <label htmlFor="code">CVV</label>
                   <input
-                    type="text"
+                    type="number"
                     id="code"
-                    value={order?.payment.card.code}
-                    readOnly
+                    name="payment.card.code"
+                    value={form.values.payment.card.code}
+                    onChange={form.handleChange}
+                    onBlur={form.handleBlur}
+                    placeholder="000"
                   />
                 </div>
               </div>
@@ -217,31 +342,33 @@ const Carrinho = () => {
                 <div className="form-item">
                   <label htmlFor="month">Mês do vencimento</label>
                   <input
-                    type="text"
+                    type="number"
                     id="month"
-                    value={order?.payment.card.expires.month}
-                    readOnly
+                    name="payment.card.expires.month"
+                    value={form.values.payment.card.expires.month}
+                    onChange={form.handleChange}
+                    onBlur={form.handleBlur}
+                    placeholder="00"
                   />
+                  {form.errors.payment?.card?.expires?.month}
                 </div>
                 <div className="form-item">
                   <label htmlFor="year">Ano do vencimento</label>
                   <input
-                    type="text"
+                    type="number"
                     id="year"
-                    value={order?.payment.card.expires.year}
-                    readOnly
+                    name="payment.card.expires.year"
+                    value={form.values.payment.card.expires.year}
+                    onChange={form.handleChange}
+                    onBlur={form.handleBlur}
+                    placeholder="0000"
                   />
+                  {form.errors.payment?.card?.expires?.year}
                 </div>
               </div>
             </form>
             <div className="buttons">
-              <Button
-                onClick={() => {
-                  setStep(4)
-                  handleSubmit()
-                }}
-                type="submit"
-              >
+              <Button onClick={handleToStep4} type="submit">
                 Finalizar o pagamento
               </Button>
               <Button onClick={() => setStep(2)}>

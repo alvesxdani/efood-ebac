@@ -9,7 +9,7 @@ export type Order = {
       description: string
       city: string
       zipCode: string
-      number: number
+      number: number | undefined
       complement: string
     }
   }
@@ -17,10 +17,10 @@ export type Order = {
     card: {
       name: string
       number: string
-      code: number
+      code: number | undefined
       expires: {
-        month: number
-        year: number
+        month: number | undefined
+        year: number | undefined
       }
     }
   }
