@@ -18,6 +18,8 @@ const Carrinho = () => {
   const [isModalOpen, setIsModalOpen] = useState(true)
   const [step, setStep] = useState<number>(1)
   const [orderId, setOrderId] = useState('')
+  const [isButtonEnabledStep2, setIsButtonEnabledStep2] = useState(false)
+  const [isButtonEnabledStep3, setIsButtonEnabledStep3] = useState(false)
 
   const msgRequired = 'Esse campo é obrigatório'
 
@@ -49,19 +51,19 @@ const Carrinho = () => {
             /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11})$/,
             'Número de cartão de crédito inválido.',
           ),
-        code: Yup.string().matches(
-          /^\d{3}$/,
-          'Esse campo deve ter apenas 3 caracteres.',
-        ),
+        code: Yup.string()
+          .matches(/^\d{3}$/, 'Esse campo deve ter apenas 3 caracteres.')
+          .required(msgRequired),
         expires: Yup.object().shape({
-          month: Yup.string().matches(
-            /^\d{2}$/,
-            'Esse campo deve ter apenas 2 caracteres.',
-          ),
-          year: Yup.string().matches(
-            /^\d{4}$/,
-            'Esse campo deve ter apenas 4 caracteres.',
-          ),
+          month: Yup.string()
+            .matches(
+              /^(0[1-9]|1[0-2])$/,
+              'Esse campo deve ser um mês válido (01 a 12).',
+            )
+            .required(msgRequired),
+          year: Yup.string()
+            .matches(/^\d{4}$/, 'Esse campo deve ter apenas 4 caracteres.')
+            .required(msgRequired),
         }),
       }),
     }),
@@ -178,6 +180,21 @@ const Carrinho = () => {
     })
   }, [dispatch])
 
+  useEffect(() => {
+    const deliveryErrors = form.errors.delivery || {}
+    setIsButtonEnabledStep2(
+      Object.keys(deliveryErrors).length === 0 && form.dirty,
+    )
+  }, [form.errors.delivery, form.dirty])
+
+  useEffect(() => {
+    // Verifica se form.errors.payment.card não é undefined antes de acessar suas chaves
+    const paymentErrors = form.errors.payment?.card || {}
+    setIsButtonEnabledStep3(
+      Object.keys(paymentErrors).length === 0 && form.dirty,
+    )
+  }, [form.errors.payment?.card, form.dirty])
+
   if (!isModalOpen) return null
 
   return (
@@ -210,7 +227,11 @@ const Carrinho = () => {
               <span>Valor total</span>
               <span>R$ {totalAmount.toFixed(2)}</span>
             </div>
-            <Button onClick={() => setStep(2)}>Continuar com a entrega</Button>
+            <Button disabled={items.length === 0} onClick={() => setStep(2)}>
+              {items.length > 0
+                ? 'Continuar com a entrega'
+                : 'Adicione um produto ao carrinho!'}
+            </Button>
           </>
         )}
 
@@ -294,7 +315,9 @@ const Carrinho = () => {
               </div>
             </form>
             <div className="buttons">
-              <Button onClick={handleToStep3}>Continuar com o pagamento</Button>
+              <Button onClick={handleToStep3} disabled={!isButtonEnabledStep2}>
+                Continuar com o pagamento
+              </Button>
               <Button onClick={() => setStep(1)}>Voltar para o carrinho</Button>
             </div>
           </div>
@@ -348,7 +371,8 @@ const Carrinho = () => {
                 <div className="form-item">
                   <label htmlFor="month">Mês do vencimento</label>
                   <input
-                    type="number"
+                    type="text"
+                    inputMode="numeric"
                     id="month"
                     name="payment.card.expires.month"
                     value={form.values.payment.card.expires.month}
@@ -374,7 +398,11 @@ const Carrinho = () => {
               </div>
             </form>
             <div className="buttons">
-              <Button onClick={handleToStep4} type="submit">
+              <Button
+                onClick={handleToStep4}
+                disabled={!isButtonEnabledStep3}
+                type="submit"
+              >
                 Finalizar o pagamento
               </Button>
               <Button onClick={() => setStep(2)}>
