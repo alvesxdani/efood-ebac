@@ -12,4 +12,9 @@ export const StyledButton = styled.button`
   border: none;
   cursor: pointer;
   font-weight: bold;
+
+  &:disabled {
+    filter: grayscale(90%);
+    cursor: no-drop;
+  }
 `
