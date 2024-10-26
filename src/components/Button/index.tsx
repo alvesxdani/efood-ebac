@@ -1,11 +1,13 @@
-import { ButtonHTMLAttributes } from "react"
-import { StyledButton } from "./styles"
+import { ButtonHTMLAttributes } from 'react'
+import { StyledButton } from './styles'
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement>
 
-const Button = ({onClick, children}: Props) => {
+const Button = ({ onClick, children, disabled }: Props) => {
   return (
-    <StyledButton onClick={onClick}>{children}</StyledButton>
+    <StyledButton onClick={onClick} disabled={disabled}>
+      {children}
+    </StyledButton>
   )
 }
 
